@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>iNetwork</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Network feeds</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link rel="stylesheet" href="/css/landing.css">
+  <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
+  <link href="images/favicon.ico" rel="icon">
+</head>
+
+<body>
+  <div class="container-fluid">
+    <% if(error && error.length > 0){ %>
+    <div class="alert alert-danger alert-dismissable fade in">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close"><i class="fa fa-times-circle"></i></a>
+      <strong><%= error %></strong>
+    </div>
+    <% } %>
+
+    <% if(success && success.length > 0){ %>
+    <div class="alert alert-success alert-dismissable fade in">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close"><i class="fa fa-times-circle"></i></a>
+      <strong><%= success %></strong>
+    </div>
+    <% } %>
+  </div>
+  <div class="outer">
+    <div class="prod-logo">
+      <img src="images/tent.png" class="prod-img" alt="icon" />
+    </div>
+    <div class="inner">
+      <div class="prod-left">
+        <h1 class="prod-head">i<span style="color:#3EC1D5">Power</span> </h1>
+        <h4 class="prod-head-sub">Connecting with Authentic People and Creating a Strong Women Community Easier Than Ever.</h4>
+        <h4 class="prod-head-sub"><button class="button" style="vertical-align:middle"
+            onclick="window.location.href = '/feeds';"><span>View feeds</span></button></h4>
+      </div>
+      <div class="prod-right">
+        <embed src="images/undraw_connected_8wvi.png" class="prod-human-img" alt="prod" />
+      </div>
+    </div>
+  </div>

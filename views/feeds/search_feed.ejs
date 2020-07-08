@@ -1,0 +1,49 @@
+<%include ./../partials/header1 %>
+
+    <!-- Original area -->
+    <div class="about-area area-padding">
+        <div class="container-fluid">
+            <div class="section-headline text-center">
+                <br><br>
+                <h2>Posts</h2>
+            </div>
+            <div id="feeds" class="row text-center">
+                <% feeds.forEach(function(feed){%>
+                <%if(type && type==feed.type){%>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="thumbnail all">
+                        <img src="<%= feed.constant %>" alt="<%= feed.name%>" style="width: 15em;height: 15em" ; />
+                        <div class="caption">
+                            <h4><%= feed.name %></h4>
+                            <p><%= feed.description.substring(0,100) %></p>
+                            <p>
+                                <a class="btn btn-large center-block btn-primary arrow"
+                                    href="/feeds/<%= feed._id %>">More
+                                    Info</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <%}%>
+      <%}); %>
+            </div>
+        </div>
+    </div>
+    <!-- Original area end-->
+
+    <!-- Start Suscrive Area -->
+    <div class="suscribe-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs=12">
+                    <div class="suscribe-text text-center">
+                        <h3>Welcome to iPower!</h3>
+                        <a class="sus-btn" href="/register">sign up now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Suscrive Area -->
+
+<%include ./../partials/footer %>

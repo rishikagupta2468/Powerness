@@ -1,0 +1,88 @@
+<%include ./../partials/header1 %>
+    <!-- Start Bottom Header -->
+    <div class="header-bg page-area">
+        <div class="home-overly"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="slider-content text-center" style="padding: 100px;">
+                        <div class="header-bottom">
+                            <div class="layer2 wow zoomIn" data-wow-duration="1s" data-wow-delay=".4s">
+                                <img class="profile-pic" src="<%=currentUser.image%>"><br><br>
+                                <h1 class="title2">Username: <%= currentUser.username %></h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- END Header -->
+
+    <div class=" about-area area-padding">
+        <div class="container-fluid">
+            <button type="button" class="btn btn-info btn-lg" id="search_button" data-toggle="modal"
+                data-target="#myModal">Search
+                user</button>
+            <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="first">
+                                <form action="/profile/<%=currentUser._id%>" method="POST"
+                                    enctype="multipart/form-data">
+                                    <div class="form-group">
+                                        <input type="file" accept="image/*" name="image1" onchange="loadFile(event)"
+                                            class="form-control">
+                                        <img id="output" class="form-control" style="height: 20em;"
+                                            src="data:image/png;base64,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" />
+                                    </div>
+                                    <div class="actions">
+                                        <button type="submit" class="btn btn-success btn-block">Search</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="second">
+                                <div class="search_image">
+                                </div>
+                                <div class="search_content">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="section-headline text-center">
+            <h2>Your Posts</h2>
+        </div>
+        <div id="feeds" class="row text-center">
+            <% posts.forEach(function(post){%>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="thumbnail all">
+                    <img src="<%=post.image %>" alt="<%=post.name%>" />
+                    <div class="caption">
+                        <h2><%= post.type %></h2>
+                        <h4><%= post.name %></h4>
+                        <p>
+                            <a class="btn btn-large center-block btn-primary arrow" href="/feeds/<%=post._id %>">More
+                                Info</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <%}); %>
+        </div>
+    </div>
+    <%include ./../partials/footer %>

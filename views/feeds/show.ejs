@@ -1,0 +1,237 @@
+<%include ./../partials/header1 %>
+  <!-- Start Bottom Header -->
+  <div class="header-bg page-area">
+    <div class="home-overly"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          <div class="slider-content text-center" style="padding:200px">
+            <div class="header-bottom">
+              <div class="layer2 wow zoomIn" data-wow-duration="1s" data-wow-delay=".4s">
+                <h1 class="title2"><%=feed.name%></h1>
+                <p><%=feed.type%></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- END Header -->
+
+  <div class="blog-page area-padding">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+          <div class="page-head-blog">
+            <div class="single-blog-page">
+            </div>
+            <div class="single-blog-page">
+              <!-- recent start -->
+              <div class="left-blog">
+                <h4>recent post</h4>
+                <div class="recent-post">
+                  <%for(var i=0; i<5 ;i++){%>
+                  <!-- start single post -->
+                  <% if(all[i]){%>
+                  <div class="recent-single-post">
+                    <div class="post-img">
+                      <a href="/feeds/<%= all[i]._id %>">
+                        <img src="<%= all[i].image %>" alt="<%= all[i].name%>" />
+                      </a>
+                    </div>
+                    <div class="pst-content">
+                      <p><a
+                          href="/feeds/<%= all[i]._id %>"><b><%=all[i].title%></b><br><%=all[i].description.substring(0,25) %>...</a>
+                      </p>
+                    </div>
+                  </div>
+                  <%}%>
+                  <%}%>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End single post -->
+        <!-- recent end -->
+        <!--side bar end-->
+
+        <!-- Start single blog -->
+        <div class="col-md-8 col-sm-8 col-xs-12">
+          <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+              <!-- single-blog start -->
+              <article class="blog-post-wrapper">
+                <div class="post-thumbnail">
+                  <img class="img img-responsive" src="<%= feed.image %>" alt="<%=feed.name%>"
+                    style="width: 50em;height: 35em;">
+                </div>
+                <div class="post-information">
+                  <h2><%=feed.name%></h2>
+                  <div class="entry-meta">
+                    <span class="author-meta"><i class="fa fa-user"></i><a class="author-meta"
+                        href="/profile/<%=feed.author.id%>"><%= feed.author.username %></a></span>
+
+                    <span><i class="fa fa-clock-o"></i><%=feed.created.toDateString()%></span>
+                  </div>
+
+                  <div class="entry-content">
+                    <blockquote>
+                      <p><%= feed.highlights%>
+                      </p>
+                    </blockquote>
+                    <p><%= feed.description %></p>
+                  </div>
+
+                  <div class="entry-meta">
+                    <!--check when on iconnect-->
+                    <!-- LikeBtn.com BEGIN -->
+                    <div class="likebtn-wrapper" data-identifier="item_1"></div>
+                    <script>(function (d, e, s) {
+                        if (d.getElementById("likebtn_wjs"))
+                          return;
+                        a = d.createElement(e);
+                        m = d.getElementsByTagName(e)[0];
+                        a.async = 1;
+                        a.id = "likebtn_wjs";
+                        a.src = s;
+                        m.parentNode.insertBefore(a, m)
+                      })(document, "script", "//w.likebtn.com/js/w/widget.js");
+                    </script>
+                    <!-- LikeBtn.com END -->
+                    <br>
+                    <br>
+                    <% if(currentUser && feed.author.id.equals(currentUser._id)){ %>
+                    <a href="<%= feed._id%>/edit" class="btn btn-warning btn-xs">Edit Post</a>
+                    <form id="delete-form" style="display: inline;" action="/feeds/<%= feed._id %>?_method=DELETE"
+                      method="POST">
+                      <button class="btn btn-danger btn-xs">Delete</button>
+                    </form>
+                    <% } %>
+                    <!--DO IT ############-->
+                    <div><i class="fa fa-comments-o"></i> <a href="#"><%=feed.comments.length%></a></div>
+                  </div>
+                </div>
+                <% if (feed.comments.length === 0) { %>
+                <em style="color: grey;">No comments yet. Say something about this feed!</em>
+                <% } %>
+                <div class="clear"></div>
+                <div class="single-post-comments">
+                  <div class="comments-area">
+                    <div class="comments-heading">
+                      <!--Do this -->
+                      <h3><%=feed.comments.lenght%></h3>
+                    </div>
+                    <div class="comments-list">
+                      <ul>
+                        <% feed.comments.forEach(function(comment){%>
+                        <li class="threaded-comments">
+                          <div class="comments-details">
+                            <div class="comments-list-img">
+                              <img
+                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKrhkmMwgSBnd8kIOTasJ1uH3l2BoUs-z_UQWyr-X5hvYOD_U0lA&s"
+                                alt="post-author" style="height: 3em;">
+                            </div>
+                            <div class="comments-content-wrap">
+                              <span>
+                                <a href="/profile/<%= comment.author.id %>"><%= comment.author.username %></a>
+                                <span class="post-time"><%= comment.created.toDateString() %></span>
+                              </span>
+                              <p><%= comment.text %></p>
+                              <% if(currentUser && comment.author.id.equals(currentUser._id)){ %>
+                              <a class="btn btn-warning btn-xs" role="button" data-toggle="collapse"
+                                href="#collapseEdit<%= comment._id %>" aria-expanded="false"
+                                aria-controls="collapse<%= comment._id %>">Edit</a>
+                              <form id="delete-form"
+                                action="/feeds/<%= feed._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST"
+                                style="display: inline;">
+                                <button class="btn btn-danger btn-xs">Delete</button>
+                              </form>
+                              <!--Edit comment form-->
+                              <!--make each id attribute unique by adding comment._id-->
+                              <div class="collapse" id="collapseEdit<%= comment._id %>">
+                                <div class="well" style="border-left: 3px solid #ffbb33; margin-top: 15px;">
+                                  <h4>Edit your comment <span class="glyphicon glyphicon-edit"
+                                      aria-hidden="true"></span>
+                                  </h4>
+                                  <form id="edit-comment-form"
+                                    action="/feeds/<%=feed._id %>/comments/<%= comment._id %>?_method=PUT"
+                                    method="POST">
+                                    <div class="form-group">
+                                      <input class="form-control" type="text" disabled
+                                        value="<%= currentUser.username %>">
+                                    </div>
+                                    <div class="form-group">
+                                      <textarea class="form-control" name="comment[text]"
+                                        placeholder="What are you think about?" form="edit-comment-form" rows="5"
+                                        cols="70" autocomplete="off"><%= comment.text %></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                      <button class="btn btn-warning btn-xs">Save</button>
+                                    </div>
+                                  </form>
+                                </div>
+                              </div>
+                              <% } %>
+                            </div>
+                          </div>
+                        </li>
+                        <%})%>
+                      </ul>
+                    </div>
+                  </div>
+              </article>
+              <div class="comment-respond" style="border-top: 1px solid #e8e8e9">
+                <br>
+                <div class="text-right">
+                  <a class="btn btn-primary btn-sm pull-right" role="button" data-toggle="collapse"
+                    href="#collapseComment" aria-expanded="false" aria-controls="collapseComment">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add new comment
+                  </a>
+                </div>
+                <!--Comment section title-->
+                <h4><span class="glyphicon glyphicon glyphicon-comment" aria-hidden="true"></span>
+                  <strong>Comments</strong>
+                </h4>
+                <!--Collapse Add a comment form START-->
+                <div class="collapse" id="collapseComment">
+                  <div class="well" style="border-left: 3px solid rgb(88, 85, 248);">
+                    <% if (!currentUser) { %>
+                    <h5>You need to be logged in first. Click <a href="/login">here</a> to go to the login page.
+                    </h5>
+                    <% } %>
+                    <% if (currentUser) { %>
+                    <h4>Write here... <span class="glyphicon glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                    </h4>
+                    <form id="add-comment-form" action="/feeds/<%= feed._id %>/comments" method="POST">
+                      <div class="form-group">
+                        <input class="form-control" type="text" disabled value="<%= currentUser.username %>">
+                      </div>
+                      <div class="form-group">
+                        <textarea class="form-control" name="comment[text]" placeholder="What are you thinking about?"
+                          form="add-comment-form" rows="5" cols="70" autocomplete="off"></textarea>
+                      </div>
+                      <div class="form-group">
+                        <button class="btn btn-success btn-sm">Send</button>
+                      </div>
+                    </form>
+                    <% } %>
+                  </div>
+                </div>
+                <!--Collapse Add a comment form END-->
+              </div>
+            </div>
+            <!-- single-blog end -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  <!-- End Blog Area -->
+  <div class="clearfix"></div>
+  <!-- Footer Partial -->
+
+  <%include ./../partials/footer %>

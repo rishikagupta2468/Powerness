@@ -1,0 +1,1 @@
+print("Python outside all")

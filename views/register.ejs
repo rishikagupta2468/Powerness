@@ -1,0 +1,40 @@
+<% include ./partials/header %>
+<div class="header-bg page-area">
+  <div class="home-overly"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="slider-content text-center">
+          <div class="header-bottom">
+            <div class="layer2 wow zoomIn" data-wow-duration="1s" data-wow-delay=".4s">
+              <!-- <div class="container"> -->
+              <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                  <h1 class="text-center">Sign Up</h1>
+                  <form id="register" action="/register" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                      <input type="file" accept="image/*" name="image" onchange="loadFile(event)" class="form-control">
+                      <img id="output" class="form-control" style="height: 20em;"
+                        src="data:image/png;base64,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">
+                    </div>
+                    <div class="form-group">
+                      <input type="text" name="username" placeholder="username" class="form-control">
+                    </div>
+                    <div class="form-group">
+                      <input type="password" name="password" placeholder="password" class="form-control">
+                    </div>
+                    <button type="submit" onclick="submitForm()" class="btn btn-success btn-block btn-sm"><i
+                        class="fa fa-sign-in"></i> Sign Up</button>
+                  </form>
+                </div>
+              </div>
+              <!-- </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="clearfix"></div>
+<% include ./partials/footer %>

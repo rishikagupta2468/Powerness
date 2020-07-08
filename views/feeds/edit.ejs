@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600,700|Raleway:300,400,400i,500,500i,700,800,900"
+    rel="stylesheet">
+
+  <link rel="stylesheet" type="text/css"
+    href="https://unpkg.com/file-upload-with-preview@4.0.2/dist/file-upload-with-preview.min.css">
+
+</head>
+
+<body data-spy="scroll" data-target="#navbar-example">
+  <header>
+    <!-- header-area start -->
+    <div id="sticker" class="header-area">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 col-sm-12">
+
+            <!-- Navigation -->
+            <nav class="navbar navbar-default">
+              <!-- Brand and toggle get grouped for better mobile display -->
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                  data-target=".bs-example-navbar-collapse-1" aria-expanded="false">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+
+                <!-- Brand -->
+                <a class="navbar-brand page-scroll sticky-logo" href="/feeds">
+                  <h1><span>i</span>Network</h1>
+                  <!-- Uncomment below if you prefer to use an image logo -->
+                  <!-- <img src="img/logo.png" alt="" title=""> -->
+                </a>
+              </div>
+
+              <!-- Collect the nav links, forms, and other content for toggling -->
+              <div class="collapse navbar-collapse main-menu bs-example-navbar-collapse-1" id="navbar-example">
+                <ul class="nav navbar-nav navbar-right">
+                  <% if(!currentUser){%>
+                  <li><a href="/login"><i class="fa fa-sign-in"></i> Login</a></li>
+                  <li><a href="/register"><i class="fa fa-user-plus"></i> Sign Up</a></li>
+                  <% } else{ %>
+                  <li>
+                    <a href="/profile/<%=currentUser._id%>" style="color:white">Welcome back
+                      <%= currentUser.username %>!</a>
+                  </li>
+                  <li><a href="/logout"><i class="fa fa-sign-out"></i> Log Out</a></li>
+                  <% } %>
+                  <li><span id="google_translate_element" style="display: inline;"><br></span></li>
+                  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+                  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+                  <script type="text/javascript">
+                    function googleTranslateElementInit() {
+                      new google.translate.TranslateElement({ pageLanguage: 'en' }, 'google_translate_element');
+                    }
+                  </script>
+                  <script type="text/javascript"
+                    src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+                  <!-- </ul>
+                  <ul class="nav navbar-nav navbar-right"> -->
+
+                </ul>
+              </div>
+          </div>
+          <div>
+            <br>
+            <br>
+            <br>
+          </div>
+          </nav>
+          <div class="container-fluid">
+            <% if(error && error.length > 0){ %>
+            <div class="alert alert-danger alert-dismissable fade in">
+              <a href="#" class="close" data-dismiss="alert" aria-label="close"><i class="fa fa-times-circle"></i></a>
+              <strong><%= error %></strong>
+            </div>
+            <% } %>
+
+            <% if(success && success.length > 0){ %>
+            <div class="alert alert-success alert-dismissable fade in">
+              <a href="#" class="close" data-dismiss="alert" aria-label="close"><i class="fa fa-times-circle"></i></a>
+              <strong><%= success %></strong>
+            </div>
+            <% } %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header> <!-- header end -->
+
+  <!-- Start Bottom Header -->
+  <div class="header-bg page-area">
+    <div class="home-overly"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          <div class="slider-content text-center" style="padding: 200px;">
+            <div class="header-bottom">
+              <div class="layer2 wow zoomIn" data-wow-duration="1s" data-wow-delay=".4s">
+                <div class="row">
+                  <div class="" style="width:70%;margin:auto">
+                    <h1 class="text-center">Edit <%= feed.name %></h1>
+                    <form action="/feeds/<%=feed._id %>?_method=PUT" method="POST">
+                      <div class="form-group">
+                        <input type="text" name="feed[name]" value="<%=feed.name%>" class="form-control">
+                      </div>
+                      <div class="form-group">
+                        <input type="text" name="feed[highlights]" value="<%=feed.highlights%>" class="form-control">
+                      </div>
+                      <div class="form-group">
+                        <textarea type="text" name="feed[description]" value="<%= feed.description %>"
+                          class="form-control" style="height: 10em;"><%= feed.description %></textarea>
+                      </div>
+                      <div class="actions">
+                        <button type="submit" class="btn btn-success btn-block">Update</button>
+                      </div>
+                    </form>
+                    <a style="text-align:center" href="/feeds"><span
+                        class="text-center glyphicon glyphicon-chevron-left"></span>Go
+                      Back</a>
+
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%include ./../partials/footer %>

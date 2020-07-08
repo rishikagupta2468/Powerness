@@ -1,0 +1,70 @@
+<%include ./../partials/header1 %>
+    <!-- Start Bottom Header -->
+    <div class="header-bg page-area">
+        <div class="home-overly"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="slider-content text-center" style="padding: 100px;">
+                        <div class="header-bottom">
+                            <div class="layer2 wow zoomIn" data-wow-duration="1s" data-wow-delay=".4s">
+                                <img class="profile-pic" src="<%=currentUser.image%>"><br><br>
+                                <h1 class="title2">Username: <%= currentUser.username %></h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- END Header -->
+
+    <div class=" about-area area-padding">
+        <div class="container-fluid">
+            <button type="button" class="btn btn-info btn-lg" id="search_button" data-toggle="modal"
+                data-target="#myModal2">Search
+                user</button>
+            <div class="modal fade" id="myModal2" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body" style="text-align: center;">
+                            <img src="<%=imgUrl%>">
+                            <br><br>
+                            <p style="font-size: large;"><i class="fa fa-users"></i>User Found: <%=run%></p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="section-headline text-center">
+            <h2>Your Posts</h2>
+        </div>
+        <div id="feeds" class="row text-center">
+            <% posts.forEach(function(post){%>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="thumbnail all">
+                    <img src="<%=post.image %>" alt="<%=post.name%>" />
+                    <div class="caption">
+                        <h2><%= post.type %></h2>
+                        <h4><%= post.name %></h4>
+                        <p>
+                            <a class="btn btn-large center-block btn-primary arrow" href="/feeds/<%=post._id %>">More
+                                Info</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <%}); %>
+        </div>
+    </div>
+    <%include ./../partials/footer %>
